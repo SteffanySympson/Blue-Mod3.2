@@ -94,3 +94,19 @@ app.post('/vagas/add', async (req, res) => {
         console.log(err);
     })
 })
+
+//Função [PUT] - Atualiza uma vaga de acordo com o ID e Body
+app.put('/vagas/update/:id', async (req, res) => {
+    await Vaga.updateOne({_id: req.params.id }, req.body) //o updateOne atualiza um objeto e aceita dois parametros, o primeiro é o filtro pelo qual ele vai buscar, e o segundo é o objeto que ele vai atualizar.
+    .then(() => {
+        res.status(200).send({
+            message: 'Atualizado com sucesso!',
+        })
+    })
+    .catch((err) => {
+        console.log(err),
+        res.status(400).send({
+            error: err
+        })
+    })
+})
